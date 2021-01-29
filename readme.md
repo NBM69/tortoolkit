@@ -1,61 +1,15 @@
 # TorToolkit Telegram
 Torrent & Yt-DL Leech Robot
 # Easy Deploy 
+Fork this repositry
 Change Your Configs. Before Deploy Here  
 Tortoolkit > Consts > ExecVarsSample.py
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-
-## Installing
-[Demo video for direct clone and run](https://youtu.be/HYjG4-VfxXs)
-Direct Clone and Run
-
-Run the following commands. (Following commands can be used to setup the vps from scratch)
-   
-    git clone https://github.com/yash-dk/TorToolkit-Telegram.git
-    sudo apt update
-    sudo apt install -y python3.8
-    sudo apt install -y python3-venv
-    python3 -m venv venv
-    source venv/bin/activate
-    cd TorToolkit-Telegram
-    pip install -r requirements.txt
-	sudo apt install -y postgresql postgresql-contrib
-	apt -qq install -y curl git wget python3 python3-pip aria2 ffmpeg mediainfo unzip p7zip-full p7zip-rar
-	curl https://rclone.org/install.sh | bash
-	apt-get install -y software-properties-common
-	apt-get -y update
-	add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
-	apt install -y qbittorrent-nox
-
-After that setup the database:-
-Remember the 'your-pass' that you enter below
-
-    sudo -u postgres bash
-    createdb tortk
-    psql
-    ALTER USER postgres with password 'your-pass';
-    exit
-    exit
-After that setup the Variables.
-	Assuming that you are in the dir where you clonned the repo
-	   
-     cd TorToolkit-Telegram/tortoolkit/consts
-	 nano ExecVarsSample.py
-
-Change the API_HASH, API_ID, BOT_TOKEN, ALD_USR and BASE_URL_OF_BOT
-Change DB_URI = "dbname=tortk user=postgres password=your-pass host=127.0.0.1 port=5432"
-enter the password in the above string
-After that run (You can use any port for the web interface here i am using 80)
-Each time before starting the bot export the port Number
-
-    export PORT=80
-
-And finally run ./start.sh in clonned folder.
-
-    chmod 777 start.sh
-    ./start.sh
+Credits
+https://github.com/yash-dk/TorToolkit-Telegram
+He creted this i only make it deploy to heroku
 
 ## Variables
 `IS_VPS` = False
