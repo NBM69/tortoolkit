@@ -1,5 +1,5 @@
-# TorToolkit Telegram
-Torrent & Yt-DL Leech Robot
+# TorToolkit Telegram Bot
+Torrent & YT-DL Leech Bot
 ## Deploy via Heroku
 - Fork this repositry
 - Before deploy, you should change the configs. 
@@ -9,7 +9,6 @@ Torrent & Yt-DL Leech Robot
 
 # Credits
 https://github.com/yash-dk/TorToolkit-Telegram
-
 
 # Variables
 `IS_VPS` = False
