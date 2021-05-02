@@ -1,5 +1,8 @@
 # TorToolkit Telegram Bot
 Torrent & YT-DL Leech Bot
+
+I don't recommend you to use this, since the author of the original repository wishes to create a seperate repository with added Heroku support. Please respect his wishes and don't use this repo. If you really need to use TTK, you can, just putting it out there.
+ 
 ## Deploy via Heroku
 - Fork this repository
 - Before deploy, you should change the configs. 
