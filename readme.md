@@ -1,6 +1,8 @@
 # TorToolkit Telegram Bot
 Torrent & YT-DL Leech Bot
 
+# Notes
+
 I don't recommend you to use this, since the author of the original repository wishes to create a seperate repository with added Heroku support. Please respect his wishes and don't use this repo. If you really need to use TTK, you can, just putting it out there.
  
 ## Deploy via Heroku
@@ -15,7 +17,7 @@ https://github.com/yash-dk/TorToolkit-Telegram
 
 https://github.com/tortoolkit/TorToolkit-Telegram
 
-# Variables
+## Variables
 `IS_VPS` = False
 ## Compulsory Vars
 
@@ -61,6 +63,7 @@ https://github.com/tortoolkit/TorToolkit-Telegram
 
 Rest Variables are not to changes 
 ## Commands
+add in @BotFather
 
     leech - To Leech a torrent or download a direct link
     ytdl - Donwload YouTube Video
