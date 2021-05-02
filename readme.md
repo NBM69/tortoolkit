@@ -7,7 +7,7 @@ I don't recommend you to use this, since the author of the original repository w
  
 ## Deploy via Heroku
 - Fork this repository
-- Before deploy, you should change the configs. 
+- Before deploying, you should change the configs. 
 - Tortoolkit > Consts > ExecVarsSample.py
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
