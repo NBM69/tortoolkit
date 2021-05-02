@@ -1,6 +1,6 @@
 {
-  "name": "Telegram Torrent Bot",
-  "description": "This Bot Leeches Magnet Links and Ytdl Supported links to Our Favourite Telegram and Most Loved Google drive and Other Cloud Servers . ",
+  "name": "TTK - TorToolKit",
+  "description": "A Telegram Bot that leeches magnet/torrent links/files from the interent. YT-DL supported for downloading youtube videos. Supports uploading to different cloud providers. ",
   "keywords": [
     "telegram","bot","torrent","leech"
   ],
