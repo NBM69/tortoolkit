@@ -7,11 +7,18 @@ services:
       - POSTGRES_DB=tortk
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=your-pass
-  tortk:
+  web:
     build: .
-    command: bash start.sh
+    command: gunicorn tortoolkit:start_server --bind 0.0.0.0:80 --worker-class aiohttp.GunicornWebWorker
+    volumes:
+      - .:/code
     ports:
       - "80:80"
-    depends_on: 
+    depends_on:
       - db
 
+  tortk:
+    build: .
+    command: python3 -m tortoolkit
+    depends_on: 
+      - db

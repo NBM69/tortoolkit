@@ -19,6 +19,8 @@ https://github.com/yash-dk/TorToolkit-Telegram
 
 https://github.com/tortoolkit/TorToolkit-Telegram
 
+https://github.com/sahadz/TorToolkit-Telegram
+
 ## Variables
 `IS_VPS` = False
 ## Compulsory Vars
