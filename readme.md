@@ -10,7 +10,7 @@ Tortoolkit > Consts > ExecVarsSample.py
 Credits
 https://github.com/yash-dk/TorToolkit-Telegram
 
-He creted this i only make it deploy to heroku
+He created this i only make it deploy to heroku
 
 ## Variables
 `IS_VPS` = False
