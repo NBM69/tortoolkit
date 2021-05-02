@@ -2,7 +2,7 @@
 # (c) YashDK [yash-dk@github]
 
 import asyncio,shlex,logging,time,os,aiohttp,shutil
-import orjson as json
+import json, time, asyncio
 from telethon.hints import MessageLike
 from telethon.tl.types import KeyboardButtonCallback, KeyboardButtonUrl
 from typing import Union,List,Tuple,Dict,Optional
