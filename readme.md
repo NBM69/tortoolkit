@@ -15,11 +15,11 @@ Note: you can also click the deploy button & add the variables manually.
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 # Credits
-https://github.com/yash-dk/TorToolkit-Telegram
+[yash-dk's TorToolkit-Telegram (base repo)](https://github.com/yash-dk/TorToolkit-Telegram)
 
-https://github.com/tortoolkit/TorToolkit-Telegram
+[tortoolkit's TorToolkit-Telegram (fixes)](https://github.com/tortoolkit/TorToolkit-Telegram)
 
-https://github.com/sahadz/TorToolkit-Telegram
+[sahadz's TorToolkit-Telegram (made compatible with heroku)](https://github.com/sahadz/TorToolkit-Telegram)
 
 ## Variables
 `IS_VPS` = False
