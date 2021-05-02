@@ -9,6 +9,7 @@ I don't recommend you to use this, since the author of the original repository w
 - Fork this repository
 - Before deploying, you should change the configs. 
 - Tortoolkit > Consts > ExecVarsSample.py
+
 Note: you can also click the deploy button & add the variables manually.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
