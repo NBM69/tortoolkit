@@ -1,20 +1,19 @@
 # TorToolkit Telegram
 Torrent & Yt-DL Leech Robot
-# Easy Deploy 
-Fork this repositry
-Change Your Configs. Before Deploy Here  
-Tortoolkit > Consts > ExecVarsSample.py
+## Deploy via Heroku
+> Fork this repositry
+> Before deploy, you should change the configs. 
+> Tortoolkit > Consts > ExecVarsSample.py
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-Credits
+# Credits
 https://github.com/yash-dk/TorToolkit-Telegram
 
-He created this i only make it deploy to heroku
 
-## Variables
+# Variables
 `IS_VPS` = False
-#### Compulsory Vars
+## Compulsory Vars
 
 `API_HASH` = Obtained from Telegram 
 
@@ -27,7 +26,7 @@ He created this i only make it deploy to heroku
 `ALD_USR` = It is a list of IDs of all the allowed groups and useres who can use this bot in private.
 
 `DB_URI` = Postgres database URL.
-#### Optional Vars
+## Optional Vars
 (IT IS RECOMMENDED TO SET THE OPTIONAL VARS FROM SETTINGS MENU, If not all vars atleast use settings menu for RCLONE that way is much easier.)
 
 `EDIT_SLEEP_SECS` = Seconds to Sleep before edits. Recommended is 40.
@@ -71,5 +70,3 @@ Rest Variables are not to changes
     resumeall - Resume all torrents⚠️ Admin Only
     purge - Delete all torrents ⚠️ Admin Only
     getlogs - Get the robot logs ⚠️ Admin Only
-
-
