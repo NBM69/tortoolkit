@@ -1,9 +1,9 @@
 # TorToolkit Telegram
 Torrent & Yt-DL Leech Robot
 ## Deploy via Heroku
-> Fork this repositry
-> Before deploy, you should change the configs. 
-> Tortoolkit > Consts > ExecVarsSample.py
+- Fork this repositry
+- Before deploy, you should change the configs. 
+- Tortoolkit > Consts > ExecVarsSample.py
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
