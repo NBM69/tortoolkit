@@ -15,8 +15,11 @@ Note: you can also click the deploy button & add the variables manually.
 <p><a href="https://heroku.com/deploy"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 # Credits
+
 > [yash-dk's TorToolkit-Telegram (base repo)](https://github.com/yash-dk/TorToolkit-Telegram)
+
 > [tortoolkit's TorToolkit-Telegram (fixes)](https://github.com/tortoolkit/TorToolkit-Telegram)
+
 > [sahadz's TorToolkit-Telegram (made compatible with heroku)](https://github.com/sahadz/TorToolkit-Telegram)
 
 ## Variables
