@@ -12,6 +12,7 @@ except:
         BASE_URL_OF_BOT = os.environ.get("BASE_URL_OF_BOT", "")
         # ALLOWED USERS [ids of user or supergroup] seperate by commas
         ALD_USR = set(int(x) for x in os.environ.get("AUTH_CHANNEL", "").split())
+        OWNER_ID = os.environ.get("OWNER_ID", "")
         
         # Google Drive Index Link should include the base dir also See readme for more info
         GD_INDEX_URL = os.environ.get("GD_INDEX_URL", "False")
