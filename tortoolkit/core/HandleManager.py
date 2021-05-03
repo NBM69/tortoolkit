@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # (c) YashDK [yash-dk@github]
+# yourtulloh edit
 
 from telethon import TelegramClient,events 
 from telethon import __version__ as telever
-from pyrogram import __version__ as pyrover
 from telethon.tl.types import KeyboardButtonCallback
 from ..consts.ExecVarsSample import ExecVars
 from ..core.getCommand import get_command
@@ -25,9 +25,6 @@ from .ttk_ytdl import handle_ytdl_command,handle_ytdl_callbacks,handle_ytdl_file
 from ..functions.instadl import _insta_post_downloader
 torlog = logging.getLogger(__name__)
 from .status.status import Status
-from .status.menu import create_status_menu, create_status_user_menu
-import signal
-from PIL import Image
 
 def add_handlers(bot: TelegramClient):
     #bot.add_event_handler(handle_leech_command,events.NewMessage(func=lambda e : command_process(e,get_command("LEECH")),chats=ExecVars.ALD_USR))
@@ -59,12 +56,6 @@ def add_handlers(bot: TelegramClient):
     bot.add_event_handler(
         handle_status_command,
         events.NewMessage(pattern=command_process(get_command("STATUS")),
-        chats=get_val("ALD_USR"))
-    )
-
-    bot.add_event_handler(
-        handle_u_status_command,
-        events.NewMessage(pattern=command_process(get_command("USTATUS")),
         chats=get_val("ALD_USR"))
     )
 
@@ -130,7 +121,8 @@ def add_handlers(bot: TelegramClient):
 
     bot.add_event_handler(
         handle_user_settings_,
-        events.NewMessage(pattern=command_process(get_command("USERSETTINGS")))
+        events.NewMessage(pattern=command_process(get_command("USERSETTINGS")),
+        chats=get_val("ALD_USR"))
     )
 
     bot.add_event_handler(
@@ -139,26 +131,7 @@ def add_handlers(bot: TelegramClient):
         chats=get_val("ALD_USR"))
     )
 
-    bot.add_event_handler(
-        start_handler,
-        events.NewMessage(pattern=command_process(get_command("START")))
-    )
-
-    bot.add_event_handler(
-        clear_thumb_cmd,
-        events.NewMessage(pattern=command_process(get_command("CLRTHUMB")),
-        chats=get_val("ALD_USR"))
-    )
-
-    bot.add_event_handler(
-        set_thumb_cmd,
-        events.NewMessage(pattern=command_process(get_command("SETTHUMB")),
-        chats=get_val("ALD_USR"))
-    )
-
-
-    signal.signal(signal.SIGINT, partial(term_handler,client=bot))
-    signal.signal(signal.SIGTERM, partial(term_handler,client=bot))
+    
 
     #*********** Callback Handlers *********** 
     
@@ -210,8 +183,9 @@ def add_handlers(bot: TelegramClient):
 #*********** Handlers Below ***********
 
 async def handle_leech_command(e):
+
     if not e.is_reply:
-        await e.reply("Reply to a link or magnet")
+        await e.reply("⚠ Reply to a direct link, ytdl link, ig link, .torrent file, or magnet link. -Auto downloading file only for Host `Mediafire.com link` and `Zippyshare.com link`.")
     else:
         rclone = False
         tsp = time.time()
@@ -230,7 +204,7 @@ async def handle_leech_command(e):
                 [KeyboardButtonCallback("Extract from Archive.[Toggle]", data=f"leechzipex toggleex {tsp}")]
         )
         
-        conf_mes = await e.reply(f"<b>First click if you want to zip the contents or extract as an archive (only one will work at a time) then. </b>\n<b>Choose where to uploadyour files:- </b>\nThe files will be uploaded to default destination after {get_val('DEFAULT_TIMEOUT')} sec of no action by user.\n\n Supported Archives to extract .zip, 7z, tar, gzip2, iso, wim, rar, tar.gz,tar.bz2",parse_mode="html",buttons=buts)
+        conf_mes = await e.reply("<i>🔰 First click if you want to zip the contents or extract as an archive (only one will work at a time) then. </i>\n<b>Choose where to upload your files:- </b>\nThe files will be uploaded to default destination after 60 sec of no action by user.\n\n Supported Archives to extract: <code>.zip, 7z, tar, gzip2, iso, wim, rar, tar.gz, tar.bz2</code>",parse_mode="html",buttons=buts)
         
         # zip check in background
         ziplist = await get_zip_choice(e,tsp)
@@ -272,13 +246,6 @@ async def get_leech_choice(e,timestamp):
     lis = [False,None]
     cbak = partial(get_leech_choice_callback,o_sender=e.sender_id,lis=lis,ts=timestamp)
     
-    gtyh = ""
-    sam1 = [68, 89, 78, 79]
-    for i in sam1:
-        gtyh += chr(i)
-    if os.environ.get(gtyh,False):
-        os.environ["TIME_STAT"] = str(time.time())
-
     e.client.add_event_handler(
         #lambda e: test_callback(e,lis),
         cbak,
@@ -411,11 +378,7 @@ async def handle_status_command(e):
         else:
             await get_status(e)
     else:
-        await create_status_menu(e)
-
-async def handle_u_status_command(e):
-    await create_status_user_menu(e)
-        
+        await get_status(e)
         
 
 async def handle_test_command(e):
@@ -427,7 +390,7 @@ async def handle_settings_cb(e):
     if await is_admin(e.client,e.sender_id,e.chat_id):
         await handle_setting_callback(e)
     else:
-        await e.answer("⚠️ WARN ⚠️ Dont Touch Admin Settings.",alert=True)
+        await e.answer("⚠️ Dont Touch Admin Settings.",alert=True)
 
 async def handle_upcancel_cb(e):
     db = upload_db
@@ -465,7 +428,7 @@ async def callback_handler_canc(e):
         torlog.info(f"Hashid :- {hashid}")
 
         await cancel_torrent(hashid, is_aria)
-        await e.answer("The torrent has been cancled ;)",alert=True)
+        await e.answer("The torrent has been canceled ;)",alert=True)
     elif e.sender_id in get_val("ALD_USR"):
         hashid = data[1]
         hashid = hashid.strip("'")
@@ -473,7 +436,7 @@ async def callback_handler_canc(e):
         torlog.info(f"Hashid :- {hashid}")
         
         await cancel_torrent(hashid, is_aria)
-        await e.answer("The torrent has been cancled in ADMIN MODE XD ;)",alert=True)
+        await e.answer("The torrent has been canceled in ADMIN MODE XD ;)",alert=True)
     else:
         await e.answer("You can cancel only your torrents ;)", alert=True)
 
@@ -483,7 +446,7 @@ async def handle_exec_message_f(e):
         return
     message = e
     client = e.client
-    if await is_admin(client, message.sender_id, message.chat_id, force_owner=True):
+    if await is_admin(client, message.sender_id, message.chat_id):
         PROCESS_RUN_TIME = 100
         cmd = message.text.split(" ", maxsplit=1)[1]
 
@@ -491,6 +454,7 @@ async def handle_exec_message_f(e):
         if message.is_reply:
             reply_to_id = message.reply_to_msg_id
 
+        start_time = time.time() + PROCESS_RUN_TIME
         process = await aio.create_subprocess_shell(
             cmd,
             stdout=aio.subprocess.PIPE,
@@ -521,8 +485,6 @@ async def handle_exec_message_f(e):
             await message.delete()
         else:
             await message.reply(OUTPUT)
-    else:
-        await message.reply("Only for owner")
 
 async def handle_pincode_cb(e):
     data = e.data.decode("UTF-8")
@@ -547,7 +509,7 @@ async def upload_document_f(message):
         "processing ..."
     )
     imsegd = await message.client.get_messages(message.chat_id,ids=imsegd.id)
-    if await is_admin(message.client, message.sender_id, message.chat_id, force_owner=True):
+    if await is_admin(message.client, message.sender_id, message.chat_id):
         if " " in message.text:
             recvd_command, local_file_name = message.text.split(" ", 1)
             recvd_response = await upload_a_file(
@@ -557,12 +519,10 @@ async def upload_document_f(message):
                 upload_db
             )
             #torlog.info(recvd_response)
-    else:
-        await message.reply("Only for owner")
     await imsegd.delete()
 
 async def get_logs_f(e):
-    if await is_admin(e.client,e.sender_id,e.chat_id, force_owner=True):
+    if await is_admin(e.client,e.sender_id,e.chat_id):
         e.text += " torlog.txt"
         await upload_document_f(e)
     else:
@@ -582,11 +542,6 @@ async def set_password_zip(message):
             await message.reply(f"Password updated successfully.")
         else:
             await message.reply(f"Cannot update the password this is not your download.")
-
-async def start_handler(event):
-    msg = "Hello This is TorToolkit an instance of <a href='https://github.com/yash-dk/TorToolkit-Telegram'>This Repo</a>. Try the repo for yourself and dont forget to put a STAR and fork."
-    await event.reply(msg, parse_mode="html")
-
 
 async def handle_server_command(message):
     try:
@@ -648,26 +603,17 @@ async def handle_server_command(message):
     diff = Human_Format.human_readable_timedelta(diff)
 
     msg = (
-        f"<b>BOT UPTIME:-</b> {diff}\n\n"
-        "<b>CPU STATS:-</b>\n"
-        f"Cores: {cores} Logical: {lcores}\n"
-        f"CPU Frequency: {freqcurrent}  Mhz Max: {freqmax}\n"
-        f"CPU Utilization: {cpupercent}%\n"
-        "\n"
-        "<b>STORAGE STATS:-</b>\n"
-        f"Total: {totaldsk}\n"
-        f"Used: {useddsk}\n"
-        f"Free: {freedsk}\n"
-        "\n"
-        "<b>MEMORY STATS:-</b>\n"
-        f"Available: {memavailable}\n"
-        f"Total: {memtotal}\n"
-        f"Usage: {mempercent}%\n"
-        f"Free: {memfree}\n"
-        "\n"
-        "<b>TRANSFER INFO:</b>\n"
-        f"Download: {dlb}\n"
-        f"Upload: {upb}\n"
+            f"<b>╭────────「 </b>⚡<u>Statistic BOT</u> 」\n<b>│\n├ ⏰ Bot uptime:</b> {diff}\n"
+            f"<b>├ 💾 Total disk space:</b> {totaldsk}\n"
+            f"<b>├ 📀 Used:</b> {useddsk}\n"
+            f"<b>├ 💿 Free:</b> {freedsk}\n"
+            f"<b>├ 🔼 Downloaded:</b> {upb}\n"
+            f"<b>├ 🔽 Uploaded:</b> {dlb}\n"
+            f"<b>├ 🖥 CPU:</b> {cpupercent}%\n"
+            f"<b>├ 🎮 RAM:</b> {mempercent}%\n"
+            f"<b>├ 🔥 Cores:</b> {cores} | <b>Logical:</b> {lcores}\n"
+            f"<b>├ 🎲 CPU Frequency:</b> <code>{freqcurrent}</code> Mhz\n"
+            f"│\n<b>╰──「</b> ⚡Mod by <code>@yourtulloh</code> 」\n"
     )
     await message.reply(msg, parse_mode="html")
 
@@ -705,98 +651,28 @@ async def about_me(message):
         "<b>Name</b>: <code>TorToolkit</code>\n"
         f"<b>Version</b>: <code>{__version__}</code>\n"
         f"<b>Telethon Version</b>: {telever}\n"
-        f"<b>Pyrogram Version</b>: {pyrover}\n"
-        "<b>Created By</b>: @yaknight\n\n"
+        "<b>Created By</b>: <code>@yaknight</code>\n"
+        "<b>Hosted By</b>: <code>@yourtulloh</code>\n\n" 
         "<u>Currents Configs:-</u>\n\n"
-        f"<b>Bot Uptime:-</b> {diff}\n"
-        "<b>Torrent Download Engine:-</b> <code>qBittorrent [4.3.0 fix active]</code> \n"
-        "<b>Direct Link Download Engine:-</b> <code>aria2</code> \n"
-        "<b>Upload Engine:-</b> <code>RCLONE</code> \n"
-        "<b>Youtube Download Engine:-</b> <code>youtube-dl</code>\n"
+        f"<b>⏰ Bot Uptime:- </b> {diff}\n"
+        "<b>🔰 Torrent DL Engine:-</b> <code>qBittorrent 4.3.0</code> \n"
+        "<b>📥 Direct Link DL Engine:-</b> <code>aria2</code> \n"
+        "<b>📤 Drive Upload Engine:-</b> <code>RCLONE</code> \n"
+        "<b>🔥 Youtube DL Engine:-</b> <code>youtube-dl</code>\n\n"
         f"<b>Rclone config:- </b> <code>{rclone_cfg}</code>\n"
         f"<b>Leech:- </b> <code>{leen}</code>\n"
         f"<b>Rclone:- </b> <code>{rclone}</code>\n"
         "\n"
         f"<b>Latest {__version__} Changelog :- </b>\n"
-        "1.Dead Torrent Will be timed out and removed.\n"
-        "2.Added /setthumb and /clearthumb.\n"
-        "3.Restrict Stuff to Owner.\n"
+        "Mod by @yourtulloh Added Directlink generator for Mediafire and Zippyshare."
+        "UI little bit changed.\n"
+        "Will be updated in next update.\n"
     )
 
     await message.reply(msg,parse_mode="html")
 
-
-async def set_thumb_cmd(e):
-    thumb_msg = await e.get_reply_message()
-    if thumb_msg is None:
-        await e.reply("Reply to a photo or photo as a document.")
-        return
-    
-    if thumb_msg.document is not None or thumb_msg.photo is not None:
-        value = await thumb_msg.download_media()
-    else:
-        await e.reply("Reply to a photo or photo as a document.")
-        return
-
-    try:
-        im = Image.open(value)
-        im.convert("RGB").save(value,"JPEG")
-        im = Image.open(value)
-        im.thumbnail((320,320), Image.ANTIALIAS)
-        im.save(value,"JPEG")
-        with open(value,"rb") as fi:
-            data = fi.read()
-            user_db.set_thumbnail(data, e.sender_id)
-        os.remove(value)
-    except Exception:
-        torlog.exception("Set Thumb")
-        await e.reply("Errored in setting thumbnail.")
-        return
-    
-    try:
-        os.remove(value)
-    except:pass
-
-    user_db.set_var("DISABLE_THUMBNAIL",False, str(e.sender_id))
-    await e.reply("Thumbnail set. try using /usettings to get more control. Can be used in private too.")
-
-async def clear_thumb_cmd(e):
-    user_db.set_var("DISABLE_THUMBNAIL",True, str(e.sender_id))
-    await e.reply("Thumbnail disabled. Try using /usettings to get more control. Can be used in private too.")
-
 async def handle_user_settings_(message):
-    if not message.sender_id in get_val("ALD_USR"):
-        if not get_val("USETTINGS_IN_PRIVATE") and message.is_private:
-            return
-
     await handle_user_settings(message)
-
-def term_handler(signum, frame, client):
-    torlog.info("TERM RECEIVD")
-    async def term_async():
-        omess = None
-        st = Status().Tasks
-        msg = "Bot Rebooting Re Add your Tasks\n\n"
-        for i in st:
-            if not await i.is_active():
-                continue
-
-            omess = await i.get_original_message()
-            if str(omess.chat_id).startswith("-100"):
-                chat_id = str(omess.chat_id)[4:]
-                chat_id = int(chat_id)
-            else:
-                chat_id = omess.chat_id
-            
-            sender = await i.get_sender_id()
-            msg += f"<a href='tg://user?id={sender}'>REBOOT</a> - <a href='https://t.me/c/{chat_id}/{omess.id}'>Task</a>\n"
-        
-        if omess is not None:
-            await omess.respond(msg, parse_mode="html")
-        exit(0)
-
-    client.loop.create_task(term_async())
-        
 
 def command_process(command):
     return re.compile(command,re.IGNORECASE)
