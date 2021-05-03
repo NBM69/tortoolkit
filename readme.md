@@ -67,7 +67,7 @@ Note: you can also click the deploy button & add the variables manually.
 
 Rest Variables are not to changes 
 ## Commands
-add in @BotFather
+add in [@BotFather](https://t.me/BotFather)
 
     leech - To Leech a torrent or download a direct link
     ytdl - Donwload YouTube Video
