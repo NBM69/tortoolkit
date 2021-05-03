@@ -42,7 +42,7 @@ except:
 
         # This value will be considered only if Rclone is True - this may be defied now ;)
         # Cuz at least one needs to be Ture at a time either RCLONE or Leech.
-        LEECH_ENABLED = True
+        LEECH_ENABLED = os.environ.get("LEECH_ENABLED", "True")
 
         # Will be enabled once its set
         # For vps change it to True if config loaded
