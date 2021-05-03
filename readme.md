@@ -12,7 +12,7 @@ I don't recommend you to use this, since the author of the original repository w
 
 Note: you can also click the deploy button & add the variables manually.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+<p><a href="https://heroku.com/deploy"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 # Credits
 [yash-dk's TorToolkit-Telegram (base repo)](https://github.com/yash-dk/TorToolkit-Telegram)
