@@ -85,6 +85,11 @@
       "description": "Allow the user settings to be accessed in private",
       "value": "False",
       "required": false
+    },
+    "OWNER_ID": {
+      "description": "Owner's ID from @userinfobot",
+      "value": "",
+      "required": true
     }
   },
  "stack": "container",
