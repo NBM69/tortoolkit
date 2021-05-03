@@ -49,7 +49,7 @@ except:
         RCLONE_ENABLED = os.environ.get("RCLONE_ENABLED", "False")
 
         # If the user fails to select whether to use rclone or telegram to upload this will be the deafult.
-        DEFAULT_TIMEOUT = "leech"
+        DEFAULT_TIMEOUT = os.environ.get("DEFAULT_TIMEOUT", "leech")
 
         # For vps set path here or you can use runtime too
         RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "")
@@ -65,13 +65,13 @@ except:
         
         # Set this to your bot username if you want to add the username of your bot at the end of the commands like
         # /leech@TorToolkitBot so the value will be @TorToolkitBot
-        BOT_CMD_POSTFIX = "" 
+        BOT_CMD_POSTFIX = os.environ.get("BOT_CMD_POSTFIX", "")
 
         # Time out for the status Delete.
         STATUS_DEL_TOUT = 20
         
         # Allow the user settings to be accessed in private
-        USETTINGS_IN_PRIVATE = False
+        USETTINGS_IN_PRIVATE = os.environ.get("USETTINGS_IN_PRIVATE", "False")
         
         # Torrent max time to collect metadata in seconds
         TOR_MAX_TOUT = 180
