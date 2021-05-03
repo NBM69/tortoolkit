@@ -38,7 +38,7 @@ except:
         #DB_URI = "dbname=tortk user=postgres password=your-pass host=db port=5432"
         
         # The base direcory to which the files will be upload if using RCLONE
-        RCLONE_BASE_DIR = "/"
+        RCLONE_BASE_DIR = os.environ.get("RCLONE_BASE_DIR", "/")
 
         # This value will be considered only if Rclone is True - this may be defied now ;)
         # Cuz at least one needs to be Ture at a time either RCLONE or Leech.
@@ -62,6 +62,19 @@ except:
         
         # Max size of the torrent allowed
         MAX_TORRENT_SIZE = int(os.environ.get("MAX_TORRENT_SIZE", "10"))
+        
+        # Set this to your bot username if you want to add the username of your bot at the end of the commands like
+        # /leech@TorToolkitBot so the value will be @TorToolkitBot
+        BOT_CMD_POSTFIX = "" 
+
+        # Time out for the status Delete.
+        STATUS_DEL_TOUT = 20
+        
+        # Allow the user settings to be accessed in private
+        USETTINGS_IN_PRIVATE = False
+        
+        # Torrent max time to collect metadata in seconds
+        TOR_MAX_TOUT = 180
 
         # This is to stop someone from abusing the system by imposing the limit
         # [<GBs of total torrent sapce>, <Number of youtube videos allowed to download>, <Number of youtube playlists allowed to download>]
