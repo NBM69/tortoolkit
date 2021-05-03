@@ -15,11 +15,9 @@ Note: you can also click the deploy button & add the variables manually.
 <p><a href="https://heroku.com/deploy"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 # Credits
-[yash-dk's TorToolkit-Telegram (base repo)](https://github.com/yash-dk/TorToolkit-Telegram)
-
-[tortoolkit's TorToolkit-Telegram (fixes)](https://github.com/tortoolkit/TorToolkit-Telegram)
-
-[sahadz's TorToolkit-Telegram (made compatible with heroku)](https://github.com/sahadz/TorToolkit-Telegram)
+- [yash-dk's TorToolkit-Telegram (base repo)](https://github.com/yash-dk/TorToolkit-Telegram)
+- [tortoolkit's TorToolkit-Telegram (fixes)](https://github.com/tortoolkit/TorToolkit-Telegram)
+- [sahadz's TorToolkit-Telegram (made compatible with heroku)](https://github.com/sahadz/TorToolkit-Telegram)
 
 ## Variables
 `IS_VPS` = False
@@ -31,11 +29,12 @@ Note: you can also click the deploy button & add the variables manually.
 
 `BOT_TOKEN` = Obtained from Botfather
 
-`BASE_URL_OF_BOT` = Ip/domain of your bot like "http://myip/"
+`BASE_URL_OF_BOT` = IP/domain of your bot like "https://appname.herokuapp.com" (for heroku)
 
 `ALD_USR` = It is a list of IDs of all the allowed groups and useres who can use this bot in private.
 
 `DB_URI` = Postgres database URL.
+
 ## Optional Vars
 (IT IS RECOMMENDED TO SET THE OPTIONAL VARS FROM SETTINGS MENU, If not all vars atleast use settings menu for RCLONE that way is much easier.)
 
@@ -65,7 +64,7 @@ Note: you can also click the deploy button & add the variables manually.
 
 `MAX_TORRENT_SIZE` = Max torrent size in GBs
 
-Rest Variables are not to changes 
+Other varibles are not to be changed.
 ## Commands
 add in [@BotFather](https://t.me/BotFather)
 
