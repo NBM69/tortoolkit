@@ -54,11 +54,17 @@
       "value": "False"
     },
     "RCLONE_CONFIG": {
-      "description": "rclone config",
+      "description": "path to rclone.conf, if you uploaded rclone.conf, it should be at /app/rclone.conf",
+      "value": "/app/rclone.conf",
       "required": false
     },
     "DEF_RCLONE_DRIVE": {
       "description": "Name of the RCLONE drive from the config",
+      "required": false
+    },
+    "RCLONE_BASE_DIR": {
+      "description": "The base direcory to which the files will be upload if using rclone",
+      "value": "/",
       "required": false
     },
     "MAX_YTPLAYLIST_SIZE": {
@@ -69,6 +75,15 @@
     "MAX_TORRENT_SIZE": {
       "description": "Max size of the torrent allowed",
       "value": "10",
+      "required": false
+    },
+    "BOT_CMD_POSTFIX": {
+      "description": "Set this to your bot username if you want to add the username of your bot at the end of the commands like /leech@TorToolkitBot so the value will be @TorToolkitBot",
+      "required": false
+    },
+    "USETTINGS_IN_PRIVATE": {
+      "description": "Allow the user settings to be accessed in private",
+      "value": "False",
       "required": false
     }
   },
