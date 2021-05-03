@@ -18,4 +18,3 @@ class Commands:
     USTATUS = "ustatus"
     SETTHUMB = "setthumb"
     CLRTHUMB = "clearthumb"
-    
