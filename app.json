@@ -43,10 +43,12 @@
     },
     "COMPLETED_STR": {
       "description": "Chracter to use as a completed progress",
+      "value": "▰",
       "required": false
     },
     "REMAINING_STR": {
       "description": "Chracter to use as a incomplete progress",
+      "value": "▱",
       "required": false
     },
     "RCLONE_ENABLED": {
