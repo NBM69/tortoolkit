@@ -39,7 +39,7 @@ class VarHolder:
         envval = os.environ.get(variable)
         INTS = ["EDIT_SLEEP_SECS", "MAX_TORRENT_SIZE", "MAX_YTPLAYLIST_SIZE", "TG_UP_LIMIT", "API_ID", "STATUS_DEL_TOUT", "TOR_MAX_TOUT", "OWNER_ID"]
         BOOLS = ["FORCE_DOCUMENTS", "LEECH_ENABLED", "RCLONE_ENABLED", "USETTINGS_IN_PRIVATE"]
-        
+
         if variable == "ALD_USR":
             if envval is not None:
                 templi = envval.split(" ")
@@ -65,7 +65,6 @@ class VarHolder:
                         val = False
             else:
                 val = None
-            
         else:
             val =  envval if envval is not None else val
 
@@ -76,7 +75,8 @@ class VarHolder:
             val = dbval
 
         if val is None:
-            raise Exception("The variable was not found in either the constants, environment or database. Variable is :- {}".format(variable))
+            torlog.error("The variable was not found in either the constants, environment or database. Variable is :- {}".format(variable))
+            #raise Exception("The variable was not found in either the constants, environment or database. Variable is :- {}".format(variable))
         
         if isinstance(val,str):
             val = val.strip()
