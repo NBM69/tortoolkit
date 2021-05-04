@@ -2,7 +2,7 @@
 
 ## Notes:
 Needs to be rebased to newer v0.2.4 beta.
-Working an a alternative PyPi package similar to ksssomesh/tgmb.
+Working an a different deployment strategy (Docker Image).
 
 ## Deploy via Heroku
 - Fork this repository
