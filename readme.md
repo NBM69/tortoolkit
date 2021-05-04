@@ -1,8 +1,8 @@
-# TTK - A Telegram Bot
-
+# TK - A Telegram Bot
 
 ## Notes:
 Needs to be rebased to newer v0.2.4 beta.
+Working an a alternative PyPi package similar to ksssomesh/tgmb.
 
 ## Deploy via Heroku
 - Fork this repository
