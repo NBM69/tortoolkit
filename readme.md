@@ -1,11 +1,7 @@
-# TorToolkit Telegram Bot
-Torrent & YT-DL Leech Bot
+# TTK - A Telegram Bot
 
-## Notice:
-I don't recommend you to use this, since the author of the original repository wishes to create a seperate repository with added Heroku support. Please respect his wishes and don't use this repo. If you really need to use TTK, you can, just putting it out there.
 
-This repo is based on yash-dk's older v0.2.0 beta modified by @yourtulloh.
-
+## Notes:
 Needs to be rebased to newer v0.2.4 beta.
 
 ## Deploy via Heroku
@@ -19,11 +15,9 @@ Note: you can also click the deploy button & add the variables manually.
 
 # Credits
 
-> [yash-dk's TorToolkit-Telegram (base repo)](https://github.com/yash-dk/TorToolkit-Telegram)
+> [tortoolkit's TorToolkit-Telegram](https://github.com/tortoolkit/TorToolkit-Telegram)
 
-> [tortoolkit's TorToolkit-Telegram (fixes)](https://github.com/tortoolkit/TorToolkit-Telegram)
-
-> [sahadz's TorToolkit-Telegram (made compatible with heroku)](https://github.com/sahadz/TorToolkit-Telegram)
+> [sahadz's TorToolkit-Telegram](https://github.com/sahadz/TorToolkit-Telegram)
 
 ## Variables
 `IS_VPS` = False
