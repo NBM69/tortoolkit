@@ -3,7 +3,7 @@
 # (c) Shrimadhav U K
 
 # the logging things
-import logging, asyncio
+import logging
 
 import math
 import os
@@ -51,12 +51,12 @@ async def progress_for_pyrogram(
         elapsed_time = time_formatter(elapsed_time)
         estimated_total_time = time_formatter(estimated_total_time)
 
-        progress = "[{0}{1}] \nP: {2}%\n".format(
+        progress = "`[{0}{1}]` \n⏳ Progress: `{2}%`\n".format(
             ''.join([get_val("COMPLETED_STR") for _ in range(math.floor(percentage / 5))]),
             ''.join([get_val("REMAINING_STR") for _ in range(20 - math.floor(percentage / 5))]),
             round(percentage, 2))
 
-        tmp = progress + "{0} of {1}\nSpeed: {2}/s\nETA: {3}\n".format(
+        tmp = progress + "📤 Uploaded: `{0} of {1}`\n🚀 Speed: `{2}/s`\n⏰ ETA: `{3}`\n".format(
             humanbytes(current),
             humanbytes(total),
             humanbytes(speed),
@@ -65,7 +65,7 @@ async def progress_for_pyrogram(
         try:
             if not message.photo:
                 await message.edit_text(
-                    text="{}\n {}".format(
+                    text="`{}`\n `{}`".format(
                         ud_type,
                         tmp
                     ),
@@ -73,13 +73,12 @@ async def progress_for_pyrogram(
                 )
             else:
                 await message.edit_caption(
-                    caption="{}\n {}".format(
+                    caption="`{}`\n `{}`".format(
                         ud_type,
                         tmp
                     ),
                     reply_markup=markup
                 )
-            await asyncio.sleep(1)
         except:
             pass
 

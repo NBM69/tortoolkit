@@ -44,13 +44,9 @@ class QBTask(Status):
         self._done = False
         self.cancel = False
         self._omess = None
-        self._prevmsg = ""
     
     async def set_original_mess(self, omess):
         self._omess = omess
-    
-    async def get_original_message(self):
-        return self._omess
 
     async def refresh_info(self, torrent = None):
         if torrent is None:
@@ -58,32 +54,28 @@ class QBTask(Status):
         else:
             self._torrent = torrent
 
-    async def get_sender_id(self):
-        return self._omess.sender_id
-
     async def create_message(self):
-        msg = "<b>Downloading:</b> <code>{}</code>\n".format(
+        msg = "<b>📥 Downloading:</b> <code>{}</code>\n".format(
             self._torrent.name
-            )
-        msg += "<b>Down:</b> {} <b>Up:</b> {}\n".format(
-            human_readable_bytes(self._torrent.dlspeed,postfix="/s"),
-            human_readable_bytes(self._torrent.upspeed,postfix="/s")
-            )
-        msg += "<b>Progress:</b> {} - {}%\n".format(
+           )
+        msg += "<code>{} - {}%</code>\n".format(
             self.progress_bar(self._torrent.progress),
             round(self._torrent.progress*100,2)
             )
-        msg += "<b>Downloaded:</b> {} of {}\n".format(
+        msg += "<b>🚀 Speed:</b> <code>{}</code>\n".format(
+            human_readable_bytes(self._torrent.dlspeed,postfix="/s")
+            )
+        msg += "<b>📦 Downloaded:</b> <code>{} of {}</code>\n".format(
             human_readable_bytes(self._torrent.downloaded),
             human_readable_bytes(self._torrent.total_size)
             )
-        msg += "<b>ETA:</b> <b>{}</b>\n".format(
+        msg += "<b>⏰ ETA:</b> <code>{}</code>\n".format(
             human_readable_timedelta(self._torrent.eta)
             )
-        msg += "<b>S:</b>{} <b>L:</b>{}\n".format(
+        msg += "<b>🔗 S:-</b> <code>{}</code> | <b>L:-</b> <code>{}</code>\n\n".format(
             self._torrent.num_seeds,self._torrent.num_leechs
             )
-        msg += "<b>Using engine:</b> <code>qBittorrent</code>"
+        msg += "  <i>⚡ Using Engine:</i> <code>qBittorrent</code>"
 
         return msg
 
@@ -93,7 +85,7 @@ class QBTask(Status):
             return"Torrent <code>{}</code> is stalled(waiting for connection) temporarily.".format(self._torrent.name)
         #meta stage
         elif self._torrent.state == "metaDL":
-            return  "Getting metadata for {} - {}".format(self._torrent.name,datetime.now().strftime("%H:%M:%S"))
+            return  "⏳ Getting metadata for: <code>{}</code>\n ⌚ Asia/Jakarta Timezone: <code>{}</code>".format(self._torrent.name,datetime.now().strftime("%H:%M:%S"))
         elif self._torrent.state == "downloading" or self._torrent.state.lower().endswith("dl"):
             # kept for past ref
             return None
@@ -107,11 +99,6 @@ class QBTask(Status):
 
     async def update_message(self):
         msg = await self.create_message()
-        if self._prevmsg == msg:
-            return
-
-        self._prevmsg = msg
-        
         try:
         
             cstate = await self.get_state()
@@ -175,7 +162,7 @@ class ARTask(Status):
         self.cancel = False
         self._omess = None
         self._path =None 
-        self._prevmsg = ""
+
     # Setters
 
     async def set_original_mess(self, omess=None):
@@ -184,17 +171,8 @@ class ARTask(Status):
 
         self._omess = omess
 
-    async def get_original_message(self):
+    async def get_original_mess(self):
         return self._omess
-
-    async def get_gid(self):
-        return self._gid
-
-    async def set_gid(self, gid):
-        self._gid = gid
-    
-    async def get_sender_id(self):
-        return self._omess.sender_id
 
     async def refresh_info(self, dl_file = None):
         if dl_file is None:
@@ -207,34 +185,33 @@ class ARTask(Status):
 
     async def create_message(self):
         # Getting the vars pre handed
-        downloading_dir_name = "N/A"
+        downloading_dir_name = "getting metadata... "
         try:
             downloading_dir_name = str(self._dl_file.name)
         except:
             pass
 
-        msg = "<b>Downloading:</b> <code>{}</code>\n".format(
+        msg = "<b>📥 Downloading:</b> <code>{}</code>\n".format(
             downloading_dir_name
-            )
-        msg += "<b>Down:</b> {} <b>Up:</b> {}\n".format(
-            self._dl_file.download_speed_string(),
-            self._dl_file.upload_speed_string()
-            )
-        msg += "<b>Progress:</b> {} - {}%\n".format(
+           ) 
+        msg += "<code>{} - {}%</code>\n".format(
             self.progress_bar(self._dl_file.progress/100),
             round(self._dl_file.progress,2)
             )
-        msg += "<b>Downloaded:</b> {} of {}\n".format(
+        msg += "<b>🚀 Speed:</b> <code>{}</code>\n".format(
+            self._dl_file.download_speed_string(),
+            )
+        msg += "<b>📦 Downloaded:</b> <code>{} of {}</code>\n".format(
             human_readable_bytes(self._dl_file.completed_length),
             human_readable_bytes(self._dl_file.total_length)
             )
-        msg += "<b>ETA:</b> <b>{} Mins</b>\n".format(
+        msg += "<b>⏰ ETA:</b> <code>{} mins</code>\n\n".format(
             self._dl_file.eta_string()
             )
-        msg += "<b>Conns:</b>{} <b>\n".format(
-            self._dl_file.connections
-            )
-        msg += "<b>Using engine:</b> <code>Aria2 For DirectLinks</code>"
+        #msg += "<b>Conns:</b>{} <b>\n".format(
+            #self._dl_file.connections
+           
+        msg += "  <i>⚡ Using Engine:</i> <code>Aria2</code>"
 
         return msg
 
@@ -247,11 +224,6 @@ class ARTask(Status):
 
     async def update_message(self):
         msg = await self.create_message()
-        if self._prevmsg == msg:
-            return
-        
-        self._prevmsg = msg
-        
         try:
             data = "torcancel aria2 {} {}".format(
                 self._gid,

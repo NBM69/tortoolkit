@@ -603,7 +603,7 @@ async def handle_server_command(message):
     diff = Human_Format.human_readable_timedelta(diff)
 
     msg = (
-            f"<b>╭────────「 </b>⚡<u>Statistic BOT</u> 」\n<b>│\n├ ⏰ Bot uptime:</b> {diff}\n"
+            f"<b>╭────────「 </b>⚡<u>Bot Statistics</u> 」\n<b>│\n├ ⏰ Bot uptime:</b> {diff}\n"
             f"<b>├ 💾 Total disk space:</b> {totaldsk}\n"
             f"<b>├ 📀 Used:</b> {useddsk}\n"
             f"<b>├ 💿 Free:</b> {freedsk}\n"
@@ -613,7 +613,7 @@ async def handle_server_command(message):
             f"<b>├ 🎮 RAM:</b> {mempercent}%\n"
             f"<b>├ 🔥 Cores:</b> {cores} | <b>Logical:</b> {lcores}\n"
             f"<b>├ 🎲 CPU Frequency:</b> <code>{freqcurrent}</code> Mhz\n"
-            f"│\n<b>╰──「</b> ⚡Mod by <code>@yourtulloh</code> 」\n"
+            f"│\n<b>╰──「</b> nice. 」\n"
     )
     await message.reply(msg, parse_mode="html")
 
@@ -652,7 +652,6 @@ async def about_me(message):
         f"<b>Version</b>: <code>{__version__}</code>\n"
         f"<b>Telethon Version</b>: {telever}\n"
         "<b>Created By</b>: <code>@yaknight</code>\n"
-        "<b>Hosted By</b>: <code>@yourtulloh</code>\n\n" 
         "<u>Currents Configs:-</u>\n\n"
         f"<b>⏰ Bot Uptime:- </b> {diff}\n"
         "<b>🔰 Torrent DL Engine:-</b> <code>qBittorrent 4.3.0</code> \n"
@@ -663,10 +662,7 @@ async def about_me(message):
         f"<b>Leech:- </b> <code>{leen}</code>\n"
         f"<b>Rclone:- </b> <code>{rclone}</code>\n"
         "\n"
-        f"<b>Latest {__version__} Changelog :- </b>\n"
-        "Mod by @yourtulloh Added Directlink generator for Mediafire and Zippyshare."
-        "UI little bit changed.\n"
-        "Will be updated in next update.\n"
+        f"<b>Latest {__version__}</b>\n"
     )
 
     await message.reply(msg,parse_mode="html")

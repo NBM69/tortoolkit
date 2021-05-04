@@ -11,14 +11,12 @@ from ..core.getVars import get_val
 from telethon.tl.types import KeyboardButtonCallback,KeyboardButtonUrl
 from telethon.errors.rpcerrorlist import MessageNotModifiedError,FloodWaitError
 from telethon import events
-from functools import partial, wraps
+from functools import partial
 from random import randint
 from .. import tor_db
 from ..core.status.status import QBTask
-
 #logging.basicConfig(level=logging.DEBUG)
 torlog = logging.getLogger(__name__)
-aloop = aio.get_event_loop()
 logging.getLogger('qbittorrentapi').setLevel(logging.ERROR)
 logging.getLogger('requests').setLevel(logging.ERROR)
 logging.getLogger('urllib3').setLevel(logging.ERROR)
@@ -37,9 +35,9 @@ async def get_client(host=None,port=None,uname=None,passw=None,retry=2) -> qba.T
     
     #try to connect to the server :)
     try:
-        await aloop.run_in_executor(None,client.auth_log_in)
+        client.auth_log_in()
         torlog.info("Client connected successfully to the torrent server. :)")
-        await aloop.run_in_executor(None,client.application.set_preferences,{"disk_cache":20,"incomplete_files_ext":True,"max_connec":3000,"max_connec_per_torrent":300,"async_io_threads":6})
+        client.application.set_preferences({"disk_cache":20,"incomplete_files_ext":True,"max_connec":3000,"max_connec_per_torrent":300,"async_io_threads":6})
         torlog.debug("Setting the cache size to 20 incomplete_files_ext:True,max_connec:3000,max_connec_per_torrent:300,async_io_threads:6")
         return client
     except qba.LoginFailed as e:
@@ -61,21 +59,20 @@ async def get_client(host=None,port=None,uname=None,passw=None,retry=2) -> qba.T
 
 async def add_torrent_magnet(magnet,message):
     """Adds a torrent by its magnet link.
-    """    
+    """
     client = await get_client()
     try:
-        ctor = len(await get_torrent_info(client))
+        ctor = len(client.torrents_info())
         
         ext_hash = Hash_Fetch.get_hash_magnet(magnet)
-        ext_res = await get_torrent_info(client, ext_hash)
-
+        ext_res = client.torrents_info(torrent_hashes=ext_hash)
         if len(ext_res) > 0:
             torlog.info(f"This torrent is in list {ext_res} {magnet} {ext_hash}")
             await message.edit("This torrent is alreaded in the leech list.")
             return False
         # hot fix for the below issue
         savepath = os.path.join(os.getcwd(), "Downloads", str(time.time()).replace(".",""))
-        op = await aloop.run_in_executor(None,partial(client.torrents_add, magnet, save_path=savepath))
+        op = client.torrents_add(magnet, save_path=savepath)
         
         
         # TODO uncomment the below line and remove the above fix when fixed https://github.com/qbittorrent/qBittorrent/issues/13572
@@ -85,7 +82,7 @@ async def add_torrent_magnet(magnet,message):
         if op.lower() == "ok.":
             st = datetime.now()
             
-            ext_res = await get_torrent_info(client, ext_hash)
+            ext_res = client.torrents_info(torrent_hashes=ext_hash)
             if len(ext_res) > 0:
                 torlog.info("Got torrent info from ext hash.")
                 return ext_res[0]
@@ -103,21 +100,21 @@ async def add_torrent_magnet(magnet,message):
                 #    torlog.info(ctor_new)
                 #    torlog.info(magnet)
                 #    return ctor_new[0]
-                ext_res = await get_torrent_info(client, ext_hash)
+                ext_res = client.torrents_info(torrent_hashes=ext_hash)
                 if len(ext_res) > 0:
                     torlog.info("Got torrent info from ext hash.")
                     return ext_res[0]
 
         else:
-            await message.edit("This is an unsupported/invalid link.")
+            await message.edit("⚠ This is an unsupported/invalid link.")
     except qba.UnsupportedMediaType415Error as e:
         #will not be used ever ;)
         torlog.error("Unsupported file was detected in the magnet here")
-        await message.edit("This is an unsupported/invalid link.")
+        await message.edit("⚠ This is an unsupported/invalid link.")
         return False
     except Exception as e:
         torlog.error("{}\n{}".format(e,traceback.format_exc()))
-        await message.edit("Error occured check logs.")
+        await message.edit("⚠ Error occured check logs.")
         return False
 
 async def add_torrent_file(path,message):
@@ -127,20 +124,19 @@ async def add_torrent_file(path,message):
 
     client = await get_client()
     try:
-        ctor = len(await get_torrent_info(client))
+        ctor = len(client.torrents_info())
 
         ext_hash = Hash_Fetch.get_hash_file(path)
-        ext_res = await get_torrent_info(client, ext_hash)
-
+        ext_res = client.torrents_info(torrent_hashes=ext_hash)
         if len(ext_res) > 0:
             torlog.info(f"This torrent is in list {ext_res} {path} {ext_hash}")
-            await message.edit("This torrent is alreaded in the leech list.")
+            await message.edit("⚠ This torrent is alreaded in the leech list.")
             return False
         
         # hot fix for the below issue
         savepath = os.path.join(os.getcwd(), "Downloads", str(time.time()).replace(".",""))
 
-        op = await aloop.run_in_executor(None,partial(client.torrents_add,torrent_files=[path], save_path=savepath))
+        op = client.torrents_add(torrent_files=[path], save_path=savepath)
         
         # TODO uncomment the below line and remove the above fix when fixed https://github.com/qbittorrent/qBittorrent/issues/13572
         # op = client.torrents_add(torrent_files=[path])
@@ -151,7 +147,7 @@ async def add_torrent_file(path,message):
             #ayehi wait karna hai
             await aio.sleep(2)
             
-            ext_res = await get_torrent_info(client, ext_hash)
+            ext_res = client.torrents_info(torrent_hashes=ext_hash)
             if len(ext_res) > 0:
                 torlog.info("Got torrent info from ext hash.")
                 return ext_res[0]
@@ -160,26 +156,26 @@ async def add_torrent_file(path,message):
                 if (datetime.now() - st).seconds >= 20:
                     torlog.warning("The provided torrent was not added and it was timed out. file path was:- {}".format(path))
                     torlog.error(ext_hash)
-                    await message.edit("The torrent was not added due to an error.")
+                    await message.edit("⚠ The torrent was not added due to an error.")
                     return False
                 #ctor_new = client.torrents_info()
                 #if len(ctor_new) > ctor:
                 #    return ctor_new[0]
-                ext_res = await get_torrent_info(client, ext_hash)
+                ext_res = client.torrents_info(torrent_hashes=ext_hash)
                 if len(ext_res) > 0:
                     torlog.info("Got torrent info from ext hash.")
                     return ext_res[0]
 
         else:
-            await message.edit("This is an unsupported/invalid link.")
+            await message.edit("⚠ This is an unsupported/invalid link.")
     except qba.UnsupportedMediaType415Error as e:
         #will not be used ever ;)
         torlog.error("Unsupported file was detected in the magnet here")
-        await message.edit("This is an unsupported/invalid link.")
+        await message.edit("⚠ This is an unsupported/invalid link.")
         return False
     except Exception as e:
         torlog.error("{}\n{}".format(e,traceback.format_exc()))
-        await message.edit("Error occured check logs.")
+        await message.edit("⚠ Error occured check logs.")
         return False
 
 async def update_progress(client,message,torrent,task,except_retry=0,sleepsec=None):
@@ -188,49 +184,30 @@ async def update_progress(client,message,torrent,task,except_retry=0,sleepsec=No
         sleepsec = get_val("EDIT_SLEEP_SECS")
     #switch to iteration from recursion as python dosent have tailing optimization :O
     #RecursionError: maximum recursion depth exceeded
-    is_meta = False
-    meta_time = time.time()
-
+    
     while True:
-        tor_info = await get_torrent_info(client, torrent.hash)
+        tor_info = client.torrents_info(torrent_hashes=torrent.hash)
         #update cancellation
         if len(tor_info) > 0:
             tor_info = tor_info[0]
         else:
             task.cancel = True
-            await task.set_inactive()
-            await message.edit("Torrent canceled ```{}``` ".format(torrent.name),buttons=None)
+            await message.edit("⛔ Torrent canceled ```{}``` ".format(torrent.name),buttons=None)
             return True
         
         if tor_info.size > (get_val("MAX_TORRENT_SIZE") * 1024 * 1024 * 1024):
-            await message.edit("Torrent oversized max size is {}. Try adding again and choose less files to download.".format(get_val("MAX_TORRENT_SIZE")), buttons=None)
-            await delete_this(tor_info.hash)
+            await message.edit("⚠ Torrent oversized max size is {}. Try adding again and choose less files to download.".format(get_val("MAX_TORRENT_SIZE")), buttons=None)
+            client.torrents_delete(torrent_hashes=tor_info.hash,delete_files=True)
             return True
         try:
             await task.refresh_info(tor_info)
             await task.update_message()
 
-            if  tor_info.state == "metaDL":
-                is_meta = True
-            else:
-                meta_time = time.time()
-                is_meta = False
-
-            if (is_meta and (time.time() - meta_time) > get_val("TOR_MAX_TOUT")):
-                
-                await message.edit("Torrent <code>{}</code> is DEAD. [Metadata Failed]".format(tor_info.name),buttons=None,parse_mode="html")
-                torlog.error("An torrent has no seeds clearing that torrent now. Torrent:- {} - {}".format(tor_info.hash,tor_info.name))
-                await delete_this(tor_info.hash)
-                await task.set_inactive("Torrent <code>{}</code> is DEAD. [Metadata Failed]".format(tor_info.name))
-                
-                return False
-
             try:
                 if tor_info.state == "error":
-
-                    await message.edit("Torrent <code>{}</code> errored out.".format(tor_info.name),buttons=None,parse_mode="html")
+                    await message.edit("⚠ Torrent <code>{}</code> errored out.".format(tor_info.name),buttons=message.reply_markup,parse_mode="html")
                     torlog.error("An torrent has error clearing that torrent now. Torrent:- {} - {}".format(tor_info.hash,tor_info.name))
-                    await delete_this(tor_info.hash)
+                    
                     await task.set_inactive("Torrent <code>{}</code> errored out.".format(tor_info.name))
                     
                     return False
@@ -241,7 +218,7 @@ async def update_progress(client,message,torrent,task,except_retry=0,sleepsec=No
                 #stop the download when download complete
                 if tor_info.state == "uploading" or tor_info.state.lower().endswith("up"):
                     # this is to address the situations where the name would cahnge abdruptly
-                    await aloop.run_in_executor(None,partial(client.torrents_pause,tor_info.hash))
+                    client.torrents_pause(tor_info.hash)
 
                     # TODO uncomment the below line when fixed https://github.com/qbittorrent/qBittorrent/issues/13572
                     # savepath = os.path.join(tor_info.save_path,tor_info.name)
@@ -249,14 +226,13 @@ async def update_progress(client,message,torrent,task,except_retry=0,sleepsec=No
                     try:
                         savepath = os.path.join(tor_info.save_path, os.listdir(tor_info.save_path)[-1])
                     except:
-                        await message.edit("Download path location failed", buttons=None)
-                        await task.set_inactive("Download path location failed")
-                        await delete_this(tor_info.hash)
+                        await message.edit("⚠ Download path location failed", buttons=None)
+                        await task.set_inactive("⚠ Download path location failed")
                         return None
 
                     await task.set_path(savepath)
                     await task.set_done()
-                    await message.edit("Download completed ```{}```. To path ```{}```".format(tor_info.name,tor_info.save_path),buttons=None)
+                    await message.edit("***✅ Download completed:*** ```{}```\n🛄 ***To path:*** ```{}```\n⏳ Processing ... ".format(tor_info.name,tor_info.save_path),buttons=None)
                     return [savepath, task]
                 else:
                     #return await update_progress(client,message,torrent)
@@ -274,10 +250,10 @@ async def update_progress(client,message,torrent,task,except_retry=0,sleepsec=No
 
 async def pause_all(message):
     client = await get_client()
-    await aloop.run_in_executor(None,partial(client.torrents_pause,torrent_hashes='all'))
+    client.torrents_pause(torrent_hashes='all')
     await aio.sleep(1)
     msg = ""
-    tors = await aloop.run_in_executor(None,partial(client.torrents_info,status_filter="paused|stalled"))
+    tors = client.torrents_info(status_filter="paused|stalled")
     msg += "⏸️ Paused total <b>{}</b> torrents ⏸️\n".format(len(tors))
 
     for i in tors:
@@ -290,12 +266,11 @@ async def pause_all(message):
 
 async def resume_all(message):
     client = await get_client()
-
-    await aloop.run_in_executor(None,partial(client.torrents_resume, torrent_hashes='all'))
+    client.torrents_resume(torrent_hashes='all')
 
     await aio.sleep(1)
     msg = ""
-    tors = await aloop.run_in_executor(None,partial(client.torrents_info,status_filter="stalled|downloading|stalled_downloading"))
+    tors = client.torrents_info(status_filter="stalled|downloading|stalled_downloading")
     
     msg += "▶️Resumed {} torrents check the status for more...▶️".format(len(tors))
 
@@ -309,7 +284,7 @@ async def resume_all(message):
 
 async def delete_all(message):
     client = await get_client()
-    tors = await get_torrent_info(client)
+    tors = client.torrents_info()
     msg = "☠️ Deleted <b>{}</b> torrents.☠️".format(len(tors))
     client.torrents_delete(delete_files=True,torrent_hashes="all")
 
@@ -318,12 +293,12 @@ async def delete_all(message):
     
 async def delete_this(ext_hash):
     client = await get_client()
-    await aloop.run_in_executor(None,partial(client.torrents_delete,delete_files=True,torrent_hashes=ext_hash))
+    client.torrents_delete(delete_files=True,torrent_hashes=ext_hash)
     return True
 
 async def get_status(message,all=False):
     client = await get_client()
-    tors = await get_torrent_info(client)
+    tors = client.torrents_info()
     olen = 0
 
     if len(tors) > 0:
@@ -333,11 +308,10 @@ async def get_status(message,all=False):
                 continue
             else:
                 olen += 1
-                msg += "📥 <b>{} | {}% | {}/{}({}) | {} | {} | S:{} | L:{} | {}</b>\n\n".format(
+                msg += "📚 <b>Filename:</b> <code>{}</code>\n<b>⏳ Progress:</b> <code>{}%</code>\n<b>📥 Downloaded:</b> <code>{} of {}</code>\n<b>🚀 Speed:</b> <code>{}</code>\n<b>⏰ ETA:</b> <code>{}</code>\n<b>🎯 INFO:</b> S:- <code>{}</code> | L:- <code>{}</code>\n<b>⚡ STATUS:</b> <u>{}</u>\n\n".format(
                     i.name,
                     round(i.progress*100,2),
                     human_readable_bytes(i.completed),
-                    human_readable_bytes(i.size),
                     human_readable_bytes(i.total_size),
                     human_readable_bytes(i.dlspeed,postfix="/s"),
                     human_readable_timedelta(i.eta),
@@ -346,14 +320,14 @@ async def get_status(message,all=False):
                     i.state
                 )
         if msg.strip() == "":
-            return "No torrents running currently...." 
+            return "😂 No download running currently...." 
         return msg
     else:
-        msg = "No torrents running currently...."
+        msg = "😂 No download running currently...."
         return msg
     
     if olen == 0:
-        msg = "No torrents running currently...."
+        msg = "😂 No download running currently...."
         return msg
 
 
@@ -375,7 +349,7 @@ def progress_bar(percentage):
 
 async def deregister_torrent(hashid):
     client = await get_client()
-    await aloop.run_in_executor(None,partial(client.torrents_delete, torrent_hashes=hashid,delete_files=True))
+    client.torrents_delete(torrent_hashes=hashid,delete_files=True)
 
 async def register_torrent(entity,message,user_msg=None,magnet=False,file=False):
     client = await get_client()
@@ -394,7 +368,7 @@ async def register_torrent(entity,message,user_msg=None,magnet=False,file=False)
             return False
         torlog.info(torrent)
         if torrent.progress == 1 and torrent.completion_on > 1:
-            await message.edit("The provided torrent was already completly downloaded.")
+            await message.edit("⚠ The provided torrent was already completly downloaded.")
             return True
         else:
             
@@ -409,13 +383,13 @@ async def register_torrent(entity,message,user_msg=None,magnet=False,file=False)
 
             urll = f"{base}/tortk/files/{torrent.hash}"
 
-            message = await message.edit("Download will be automatically started after 180s of no action.",buttons=[
+            message = await message.edit("📥 Download will be automatically started after 180s of no action.",buttons=[
                 [
-                    KeyboardButtonUrl("Choose File from link",urll),
-                    KeyboardButtonCallback("Get Pincode",data=pincodetxt.encode("UTF-8"))
+                    KeyboardButtonUrl("📦 Choose File From Link",urll),
+                    KeyboardButtonCallback("🔗 Get Pincode",data=pincodetxt.encode("UTF-8"))
                 ],
                 [
-                    KeyboardButtonCallback("Done Selecting Files.",data=f"doneselection {omess.sender_id} {omess.id}".encode("UTF-8"))
+                    KeyboardButtonCallback("✅ Download Selecting Files",data=f"doneselection {omess.sender_id} {omess.id}".encode("UTF-8"))
                 ]
             ])
 
@@ -508,16 +482,6 @@ async def get_confirm_callback(e,lis):
         return
     if str(lis[2]) != msgid:
         return
-    await e.answer("Starting the download with the selected files.")
+    await e.answer("⏳ Starting download with the selected files... ")
     lis[0] = True
     raise events.StopPropagation()
-
-# quick asycn functions
-
-async def get_torrent_info(client, ehash=None):
-
-    if ehash is None:
-        return await aloop.run_in_executor(None,client.torrents_info)
-    else:
-        return await aloop.run_in_executor(None,partial(client.torrents_info,torrent_hashes=ehash))
-
