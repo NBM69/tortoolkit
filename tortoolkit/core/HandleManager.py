@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-# (c) YashDK [yash-dk@github]
-# yourtulloh edit
-
 from telethon import TelegramClient,events 
 from telethon import __version__ as telever
 from telethon.tl.types import KeyboardButtonCallback
@@ -648,16 +644,15 @@ async def about_me(message):
     diff = Human_Format.human_readable_timedelta(diff)
 
     msg = (
-        "<b>Name</b>: <code>TorToolkit</code>\n"
+        "<b>Name</b>: <code>tk</code>\n"
         f"<b>Version</b>: <code>{__version__}</code>\n"
         f"<b>Telethon Version</b>: {telever}\n"
-        "<b>Created By</b>: <code>@yaknight</code>\n"
         "<u>Currents Configs:-</u>\n\n"
-        f"<b>⏰ Bot Uptime:- </b> {diff}\n"
-        "<b>🔰 Torrent DL Engine:-</b> <code>qBittorrent 4.3.0</code> \n"
-        "<b>📥 Direct Link DL Engine:-</b> <code>aria2</code> \n"
-        "<b>📤 Drive Upload Engine:-</b> <code>RCLONE</code> \n"
-        "<b>🔥 Youtube DL Engine:-</b> <code>youtube-dl</code>\n\n"
+        f"<b>Bot Uptime:- </b> {diff}\n"
+        "<b>Torrent DL Engine:-</b> <code>qBittorrent 4.3.0</code> \n"
+        "<b>Direct Link DL Engine:-</b> <code>aria2</code> \n"
+        "<b>Drive Upload Engine:-</b> <code>rclone</code> \n"
+        "<b>Youtube DL Engine:-</b> <code>youtube-dl</code>\n\n"
         f"<b>Rclone config:- </b> <code>{rclone_cfg}</code>\n"
         f"<b>Leech:- </b> <code>{leen}</code>\n"
         f"<b>Rclone:- </b> <code>{rclone}</code>\n"
