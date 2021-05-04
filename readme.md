@@ -12,8 +12,8 @@ Working an a different deployment strategy (Docker Image).
 Note: you can also click the deploy button & add the variables manually.
 
 <p><a href="https://heroku.com/deploy"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
-    [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-[Deploy To Heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https://github.com/reaitten/tk&template=https://github.com/reaitten/tk)
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https://github.com/reaitten/tk&template=https://github.com/reaitten/tk)
 
 # Credits
 
