@@ -1,23 +1,24 @@
 # TK - A Telegram Bot
 
 ## Notes:
-Needs to be rebased to newer v0.2.4 beta.
-Working an a different deployment strategy (Docker Image).
+This is the source code of TK.
+
+Use this if you'd like the to build from the old-fashion way.
+
+To be add more documentation about deploying bot.
 
 ## Deploy via Heroku
-- Fork this repository
-- Before deploying, you should change the configs. 
-- Tortoolkit > Consts > ExecVarsSample.py
-
-Note: you can also click the deploy button & add the variables manually.
-
+- Click the button below
+- Add required variables
+- Build
+- Enjoy!
 <p><a href="https://heroku.com/deploy?template=https://github.com/reaitten/ttk"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 # Credits
 
-> [tortoolkit's TorToolkit-Telegram](https://github.com/tortoolkit/TorToolkit-Telegram)
+> [tortoolkit's tortoolkit-Telegram](https://github.com/tk/tk-Telegram)
 
-> [sahadz's TorToolkit-Telegram](https://github.com/sahadz/TorToolkit-Telegram)
+> [sahadz's tortoolkit-Telegram](https://github.com/sahadz/tk-Telegram)
 
 ## Variables
 `IS_VPS` = False
@@ -35,12 +36,16 @@ Note: you can also click the deploy button & add the variables manually.
 
 `DB_URI` = Postgres database URL.
 
+`OWNER_ID` = self-explanatory, get value from [@userinfobot](https://t.me/userinfobot)
+
 ## Optional Vars
 (IT IS RECOMMENDED TO SET THE OPTIONAL VARS FROM SETTINGS MENU, If not all vars atleast use settings menu for RCLONE that way is much easier.)
 
 `EDIT_SLEEP_SECS` = Seconds to Sleep before edits. Recommended is 40.
 
 `TG_UP_LIMIT` = Telegram Upload limit in bytes.
+
+`BOT_CMD_POSTFIX` = Set this to your bot username if you want to add the username of your bot at the end of the commands. e.g `/leech@TorToolkitBot` so the value will be @TorToolkitBot
 
 `FORCE_DOCUMENTS` = Should all the upload to telegram be made as documents or not.
 
@@ -56,9 +61,9 @@ Note: you can also click the deploy button & add the variables manually.
 
 `DEFAULT_TIMEOUT` = Default destination to choose if the user fails to choose upload destination in 60 seconds.
 
-`RCLONE_CONFIG` = Rclone file path.
+`RCLONE_CONFIG` = rclone file path. usually it's /app/rclone.conf if you uploaded rclone.conf onto the root directory of folder.
 
-`DEF_RCLONE_DRIVE` = Default Rclone drive from the config file.
+`DEF_RCLONE_DRIVE` = Default Drive for rclone to use. e.g: if my drive is called `tk-drive`, then i would add the value, `tk-drive`.
 
 `MAX_YTPLAYLIST_SIZE` = Max size of a playlist that is allowed (Number of videos)
 

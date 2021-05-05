@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
-WORKDIR /torapp
-RUN chmod -R 777 /torapp
-RUN apt -qq update
+WORKDIR /tk
+RUN chmod -R 777 /tk
+RUN apt-get -qq update
 ENV TZ Asia/Kolkata
 ENV DEBIAN_FRONTEND noninteractive
 

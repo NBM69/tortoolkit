@@ -16,6 +16,6 @@ splfil/
 # runtime files
 Downloads/
 userdata/
-torlog.txt
+tk_logs.txt
 *.conf
  
