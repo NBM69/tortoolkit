@@ -1,12 +1,9 @@
 # TK - A Telegram Bot
 
 ## Notes:
-This is the source code of TK.
+This is the source code of TK based on TorToolKit v0.2.8 beta.
 
-Use this if you'd like the to build from the old-fashion way.
-
-To be add more documentation about deploying bot.
-
+Do not use, things **are** broken.
 ## Deploy via Heroku
 - Download [deploy.zip](https://github.com/reaitten/tk/raw/source/deploy-v1.0.1.zip)
 - Add rclone.conf to the deploy/ folder (if wanted)
