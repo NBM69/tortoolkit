@@ -1,0 +1,52 @@
+{
+  "name": "TG Upload Bot",
+  "description": "This Bot Leeches Magnet Links and Ytdl Supported links to Our Favourite Telegram and Most Loved Google drive and Other Cloud Servers . ",
+  "keywords": [
+    "telegram","bot","torrent","leech"
+  ],
+  "stack": "container",
+  "repository": "https://github.com/sherlockia2/TorTk-Flakes",
+  "success_url": "https://t.me/kaizokutantei",
+  "website": "https://github.com/sherlockia2",
+  
+"env": {
+    "BASE_URL_OF_BOT": {
+      "description": "your Heroku app Url like :- https://yourappname.herokuapp.com",
+      "value": "https://appname.herokuapp.com", 
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Your bot token, as a string.",
+      "value": "", 
+      "required": true
+    },
+    "API_ID": {
+      "description": "Get this value from https://my.telegram.org or @usetgxBot",
+      "value": "", 
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Get this value from https://my.telegram.org or @usetgxbot",
+      "value": "", 
+      "required": true
+    },
+    "ALD_USR": {
+      "description": "ALLOWED USERS [ids of user or supergroup] seperate by space",
+      "value": "1181409600", 
+      "required": true
+    },
+    "DB_URI": {
+      "description": "Your Database Url , do skip till deploy then Add Value of DATABASE_URL",
+      "Value": "DATABASE_URL",
+      "required": false
+    }
+},
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "12"
+      }
+    }
+  ]
+}
