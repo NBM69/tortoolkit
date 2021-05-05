@@ -8,6 +8,7 @@ Use this if you'd like the to build from the old-fashion way.
 To be add more documentation about deploying bot.
 
 ## Deploy via Heroku
+- Download [deploy.zip](https://github.com/reaitten/tk/blob/source/deploy-v1.0.1.zip)
 - Click the button below
 - Add required variables
 - Build
