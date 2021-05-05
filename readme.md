@@ -9,10 +9,15 @@ To be add more documentation about deploying bot.
 
 ## Deploy via Heroku
 - Download [deploy.zip](https://github.com/reaitten/tk/raw/source/deploy-v1.0.1.zip)
-- Click the button below
-- Add required variables
-- Build
-- Enjoy!
+- Add rclone.conf to the deploy/ folder (if wanted)
+- Install Heroku CLI
+- Change stack to container `heroku stack:set container --app your-leech-bot`
+- `git init`
+- `git add .`
+- `git commit -m "initial commit"`
+- `heroku git:remote --app your-leech-bot`
+- `git push heroku main` (if not working switch main for master)
+
 <p><a href="https://heroku.com/deploy?template=https://github.com/reaitten/ttk"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 # Credits
