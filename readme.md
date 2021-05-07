@@ -1,20 +1,33 @@
 # TK - A Telegram Bot
 
 ## Notes:
-This is the source code of TK.
-
-Use this if you'd like the to build from the old-fashion way.
-
-To be add more documentation about deploying bot.
+~~this sucks and nothing works~~~
 
 ## Deploy via Heroku
 - Click the button below
 - Add required variables
 - Build
-- Enjoy!
+- 
 <p><a href="https://heroku.com/deploy?template=https://github.com/reaitten/ttk"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
+## Deploy via Heroku CLI
+- Download [deploy.zip](https://github.com/reaitten/tk/releases/tag/v1.0).
+- Unzip & open a command prompt.
+- Change stack dyno to container:
+```
+heroku stack:set container --app your-app-name
+```
+- Initialise the project files as a Git Repository, push the repo to 'Heroku Git' and build the Docker Image:
+```
+git init
+git add .
+heroku git:remote -a your-app-name`
+git commit -m "initial commit"
+```
+
 # Credits
+
+> [yash-dk's TorToolkit](https://github.com/yash-dk/TorToolkit-Telegram)
 
 > [tortoolkit's tortoolkit-Telegram](https://github.com/tk/tk-Telegram)
 
@@ -70,6 +83,7 @@ To be add more documentation about deploying bot.
 `MAX_TORRENT_SIZE` = Max torrent size in GBs
 
 Other varibles are not to be changed.
+
 ## Commands
 add in [@BotFather](https://t.me/BotFather)
 
@@ -79,9 +93,12 @@ add in [@BotFather](https://t.me/BotFather)
     about - About the bot
     status - Status of all the downloads
     server - Get server status
-    usettings - User Settings
+    usettings - User Settings (private also)
+    instadl - Instagram Post/Reel/IGTV download
+    setthumb - Set the thumbnail
+    clearthumb - Clear the thumbnail
     settings - Settings of the bot ⚠️ Admin Only
     pauseall - Pause all torrents⚠️ Admin Only
     resumeall - Resume all torrents⚠️ Admin Only
     purge - Delete all torrents ⚠️ Admin Only
-    getlogs - Get the robot logs ⚠️ Admin Only
+    logs - Get the robot logs ⚠️ Admin Only
