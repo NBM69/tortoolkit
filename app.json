@@ -85,7 +85,6 @@
       "description": "Allow the user settings to be accessed in private",
       "value": "False",
       "required": false
-    }
     },
     "OWNER_ID": {
       "description": "Used to restrict use of certain stuff to owner only.",
