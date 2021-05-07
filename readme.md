@@ -1,7 +1,7 @@
 # TK - A Telegram Bot
 
 ## Notes:
-~~~this sucks and nothing works~~~
+~~this sucks and nothing works~~
 
 ## Deploy via Heroku
 - Click the button below
