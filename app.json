@@ -90,7 +90,7 @@
       "description": "Used to restrict use of certain stuff to owner only.",
       "value": "12345678",
       "required": false
-    },
+    } 
   },
  "stack": "container",
  "addons": [
