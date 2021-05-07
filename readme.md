@@ -22,6 +22,7 @@ git init
 git add .
 heroku git:remote -a your-app-name`
 git commit -m "initial commit"
+git push heroku main
 ```
 
 # Credits
@@ -44,7 +45,7 @@ git commit -m "initial commit"
 
 `BASE_URL_OF_BOT` = IP/domain of your bot like "https://appname.herokuapp.com" (for heroku)
 
-`ALD_USR` = It is a list of IDs of all the allowed groups and useres who can use this bot in private.
+`ALD_USR` = It is a list of IDs of all the allowed groups and useres who can use this bot in private. Seperated by spaces e.g: "-102222 -33322211 11222333"
 
 `DB_URI` = Postgres database URL.
 
