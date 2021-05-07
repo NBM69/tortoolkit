@@ -24,12 +24,12 @@
       "description": "https://appname.herokuapp.com",
       "value": ""
     },
-    "AUTH_CHANNEL": {
-      "description": "ALLOWED USERS [ids of user or supergroup] seperate by commas",
+    "ALD_USR": {
+      "description": "ALLOWED USERS [ids of user or supergroup] seperate by spaces",
       "value": ""
     },
     "GD_INDEX_URL": {
-      "description": "gdrive Index link",
+      "description": "gdrive index link",
       "required": false
     },
     "EDIT_SLEEP_TIME_OUT": {
