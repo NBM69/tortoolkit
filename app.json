@@ -1,5 +1,5 @@
 {
-  "name": "TTK - TorToolKit",
+  "name": "TK - TorToolKit",
   "description": "A Telegram Bot that leeches magnet/torrent links/files from the interent. YT-DL supported for downloading youtube videos. Supports uploading to different cloud providers. ",
   "keywords": [
     "telegram","bot","torrent","leech"
@@ -24,7 +24,7 @@
       "description": "https://appname.herokuapp.com",
       "value": ""
     },
-    "ALD_USR": {
+    "AUTH_CHANNEL": {
       "description": "ALLOWED USERS [ids of user or supergroup] seperate by spaces",
       "value": ""
     },
