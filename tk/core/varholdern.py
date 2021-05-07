@@ -25,7 +25,7 @@ class VarHolder:
         if variable in self._var_dict.keys():
             torlog.debug("network call no made")
             return self._var_dict[variable]
-        torlog.debug("Network call made")
+        torlog.debug("Nework call made")
         db = self._vardb
         val = None
 

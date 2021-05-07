@@ -26,8 +26,8 @@ header =  '<b>tk - a telegram leech bot. <a href="https://github.com/reaitten">r
 async def handle_setting_callback(e):
     db = tordb
     session_id,_ = db.get_variable("SETTING_AUTH_CODE")
-
     
+
     data = e.data.decode()
     cmd = data.split(" ")
     val = ""
@@ -207,8 +207,6 @@ async def handle_setting_callback(e):
     elif cmd[1] == "selfdest":
         await e.answer("Closed")
         await e.delete()
-        
-
         
 
 
