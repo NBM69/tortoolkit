@@ -7,4 +7,3 @@ build:
     web: Dockerfile
 run:
     web: bash start.sh
-

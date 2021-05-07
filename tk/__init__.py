@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__version__ = "1.0.1 stable"
+__version__ = "1.0.1"
 __author__ = "reaitten@github"
 
 import logging
@@ -11,7 +11,7 @@ logging.basicConfig(
 )
 
 from tk.core.wserver import start_server
-from .core.database_handle import tkupload,tkdb,tktorrents, userdb
+from .core.database_handle import tkupload, tkdb, tktorrents, userdb
 from .core.varholdern import VarHolder
 import time
 
@@ -24,7 +24,3 @@ user_db = userdb()
 uptime = time.time()
 to_del = []
 SessionVars = VarHolder(var_db)
-
-
-SessionVars = VarHolder(var_db)
-

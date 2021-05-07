@@ -23,7 +23,7 @@ async def upload_handel(path,message,from_uid,files_dict,job_id=0,force_edit=Fal
     # creting here so connections are kept low
     if updb is None:
         # Central object is not used its Acknowledged 
-        updb = tkupload()
+        updb = TtkUtkuploadpload()
 
     #logging.info("Uploading Now:- {}".format(path))
 

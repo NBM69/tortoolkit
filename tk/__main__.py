@@ -3,7 +3,7 @@
 from telethon import TelegramClient
 from tk.core.HandleManager import add_handlers
 from tk.core.getVars import get_val
-import logging,asyncio
+import logging, asyncio
 from tk.core.wserver import start_server_async
 from pyrogram import Client
 try:
@@ -28,7 +28,7 @@ if __name__ == "__main__":
         queue.put_nowait(i)
 
     # Telethon client creation
-    tkbot = tkclient("tkclient",get_val("API_ID"),get_val("API_HASH"))
+    tkbot = tkclient("tkbot",get_val("API_ID"),get_val("API_HASH"))
     tkbot.queue = queue
     tkbot.start(bot_token=get_val("BOT_TOKEN"))
     logging.info("telethon client created.")

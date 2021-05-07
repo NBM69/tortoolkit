@@ -25,7 +25,7 @@ class VarHolder:
         if variable in self._var_dict.keys():
             torlog.debug("network call no made")
             return self._var_dict[variable]
-        torlog.debug("Nework call made")
+        torlog.debug("Network call made")
         db = self._vardb
         val = None
 
@@ -50,10 +50,6 @@ class VarHolder:
                             templi2.append(int(templi[i]))
                         except ValueError:
                             torlog.error(f"Invalid allow user {templi[i]} must be a integer.")
-                if val is not None:
-                    val.extend(templi2)
-                else:
-                    val = templi
         elif variable in INTS:
             val =  int(envval) if envval is not None else val
         elif variable in BOOLS:

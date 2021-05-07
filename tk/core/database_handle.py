@@ -6,7 +6,7 @@ import psycopg2.extras
 from ..functions.pg_plugin import DataBaseHandle
 from ..consts.ExecVarsSample import ExecVars
 import json
-#this will handel the transaction with completed torrents
+# this will handle the transaction with completed torrents
 
 # this now will handle the setting for the bot
 class tkdb(DataBaseHandle):

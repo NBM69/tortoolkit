@@ -7,24 +7,24 @@ from telethon import TelegramClient,events
 from telethon import __version__ as telever
 from pyrogram import __version__ as pyrover
 from telethon.tl.types import KeyboardButtonCallback
-from ..consts.ExecVarsSample import ExecVars
-from ..core.getCommand import get_command
-from ..core.getVars import get_val
-from ..functions.Leech_Module import check_link,cancel_torrent,pause_all,resume_all,purge_all,get_status,print_files, get_transfer
-from ..functions.tele_upload import upload_a_file,upload_handel
-from ..functions import Human_Format
-from .database_handle import tkupload,tktorrents, tkdb
-from .settings import handle_settings,handle_setting_callback
-from .user_settings import handle_user_settings, handle_user_setting_callback
+from tk.consts.ExecVarsSample import ExecVars
+from tk.core.getCommand import get_command
+from tk.core.getVars import get_val
+from tk.functions.Leech_Module import check_link,cancel_torrent,pause_all,resume_all,purge_all,get_status,print_files, get_transfer
+from tk.functions.tele_upload import upload_a_file,upload_handel
+from tk.functions import Human_Format
+from tk.database_handle import tkupload,tktorrents, tkdb
+from tk.settings import handle_settings,handle_setting_callback
+from tk.user_settings import handle_user_settings, handle_user_setting_callback
 from functools import partial
-from ..functions.rclone_upload import get_config,rclone_driver
-from ..functions.admin_check import is_admin
-from .. import upload_db, var_db, tor_db, user_db, uptime
+from tk.functions.rclone_upload import get_config,rclone_driver
+from tk.functions.admin_check import is_admin
+from tk import upload_db, var_db, tor_db, user_db, uptime
 import asyncio as aio
 import re,logging,time,os,psutil,shutil
 from tk import __version__
-from .ttk_ytdl import handle_ytdl_command,handle_ytdl_callbacks,handle_ytdl_file_download,handle_ytdl_playlist,handle_ytdl_playlist_down
-from ..functions.instadl import _insta_post_downloader
+from tk.ttk_ytdl import handle_ytdl_command,handle_ytdl_callbacks,handle_ytdl_file_download,handle_ytdl_playlist,handle_ytdl_playlist_down
+from tk.functions.instadl import _insta_post_downloader
 torlog = logging.getLogger(__name__)
 from .status.status import Status
 from .status.menu import create_status_menu, create_status_user_menu
@@ -32,11 +32,11 @@ import signal
 from PIL import Image
 
 def add_handlers(bot: TelegramClient):
-    #bot.add_event_handler(handle_leech_command,events.NewMessage(func=lambda e : command_process(e,get_command("LEECH")),chats=ExecVars.ALD_USR))
-    
+
+
     bot.add_event_handler(
         handle_leech_command,
-        events.NewMessage(pattern=command_process(get_command("LEECH")),
+        events.NewMessage(func=lambda e : command_process(e,get_command("LEECH")),
         chats=get_val("ALD_USR"))
     )
     
@@ -586,7 +586,7 @@ async def set_password_zip(message):
             await message.reply(f"cannot update the password since this isn't your download.")
 
 async def start_handler(event):
-    msg = "TK - A Telegram Leecher Bot. \n <a href='https://github.com/reaitten/tk'>Repository</a>."
+    msg = "TK - A Telegram Leecher Bot."
     await event.reply(msg, parse_mode="html")
 
 
