@@ -18,11 +18,11 @@ TIMEOUT_SEC = 60
 # this file will contian all the handlers and code for settings
 # code can be more modular i think but not bothering now
 # todo make the code more modular
-no = "❌"
-yes = "✅"
+no = "disabled - "
+yes = "enabled - "
 # Central object is not used its Acknowledged 
 tordb = tkdb()
-header =  '<b>**tk** - a telegram leech bot. <a href="https://github.com/reaitten">reaitten</a></b>\n<u>administrator menu</u>'
+header =  '<b>tk - a telegram leech bot. <a href="https://github.com/reaitten">reaitten</a></b>\n<u>administrator menu</u>'
 async def handle_setting_callback(e):
     db = tordb
     session_id,_ = db.get_variable("SETTING_AUTH_CODE")
@@ -230,7 +230,7 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
     if submenu is None:
         await get_bool_variable("LOCKED_USERS","Lock the Group",menu,"usrlock",session_id)
         await get_bool_variable("FORCE_DOCUMENTS","FORCE_DOCUMENTS",menu,"fdocs",session_id)
-        await get_bool_variable("METAINFO_BOT","[MetainfoRoBot]Get metadata of files in this group.",menu,"metainfo",session_id)
+        await get_bool_variable("METAINFO_BOT","mediainforobot - get metadata of files in this group.",menu,"metainfo",session_id)
         await get_string_variable("COMPLETED_STR",menu,"compstr",session_id)
         await get_string_variable("REMAINING_STR",menu,"remstr",session_id)
         await get_int_variable("TG_UP_LIMIT",menu,"tguplimit",session_id)
@@ -238,8 +238,8 @@ async def handle_settings(e,edit=False,msg="",submenu=None,session_id=None):
         await get_int_variable("MAX_YTPLAYLIST_SIZE",menu,"maxytplsize",session_id)
         await get_int_variable("EDIT_SLEEP_SECS",menu,"editsleepsec",session_id)
         #await get_string_variable("RCLONE_CONFIG",menu,"rcloneconfig",session_id)
-        await get_sub_menu("☁️ Open Rclone Menu ☁️","rclonemenu",session_id,menu)
-        await get_sub_menu("🕹️ Control Actions 🕹️","ctrlacts",session_id,menu)
+        await get_sub_menu("Open Rclone Menu","rclonemenu",session_id,menu)
+        await get_sub_menu("Control Actions","ctrlacts",session_id,menu)
         menu.append(
             [KeyboardButtonCallback("Close Menu",f"settings selfdest {session_id}".encode("UTF-8"))]
         )

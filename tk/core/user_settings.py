@@ -20,11 +20,11 @@ TIMEOUT_SEC = 60
 # this file will contian all the handlers and code for settings
 # code can be more modular i think but not bothering now
 # todo make the code more modular
-no = "❌"
-yes = "✅"
+no = "disabled - "
+yes = "enabled - "
 # Central object is not used its Acknowledged 
 tordb = tkdb()
-header =  '<b>**tk** - a telegram leecher bot. <a href="https://github.com/reaitten">reaitten</a></b>\n<u>user settings menu1</u>'
+header =  '<b>tk - a telegram leecher bot. \n<a href="https://github.com/reaitten">reaitten</a></b>\n<u>user settings menu</u>'
 async def handle_user_setting_callback(e):
     db = tordb
     sender_id = str(e.sender_id)
@@ -120,9 +120,9 @@ async def handle_user_settings(e,edit=False,msg="",submenu=None,sender_id=None):
 
 
         if edit:
-            rmess = await e.edit(header+"\nEnjoiii.\n"+msg,parse_mode="html",buttons=menu,link_preview=False, file="tk.jfif")
+            rmess = await e.edit(header+"\nEnjoy.\n"+msg,parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
         else:
-            rmess = await e.reply(header+"\nEnjoiii.\n",parse_mode="html",buttons=menu,link_preview=False, file="tk.jfif")
+            rmess = await e.reply(header+"\nEnjoy.\n",parse_mode="html",buttons=menu,link_preview=False, file="tk.jpg")
     elif submenu == "rclonemenu":
         rcval = await get_string_variable("RCLONE_CONFIG",menu,"rcloneconfig",sender_id)
         if rcval != "None":

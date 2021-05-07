@@ -127,7 +127,7 @@ tk Torrent Files
 """
 
 
-@routes.get('/tortk/files/{hash_id}')
+@routes.get('/tk/files/{hash_id}')
 async def list_torrent_contents(request):
     # not using templates cuz wanted to keem things in one file, might change in future #todo
     torr = request.match_info["hash_id"]
@@ -135,7 +135,7 @@ async def list_torrent_contents(request):
     gets = request.query
 
     if not "pin_code" in gets.keys():
-        rend_page = code_page.replace("{form_url}",f"/tortk/files/{torr}")
+        rend_page = code_page.replace("{form_url}",f"/tk/files/{torr}")
         return web.Response(text=rend_page,content_type='text/html')
 
     
@@ -163,7 +163,7 @@ async def list_torrent_contents(request):
     nodes.create_list(par,cont)
 
     rend_page = page.replace("{My_content}",cont[0])
-    rend_page = rend_page.replace("{form_url}",f"/tortk/files/{torr}?pin_code={pincode}")
+    rend_page = rend_page.replace("{form_url}",f"/tk/files/{torr}?pin_code={pincode}")
     client.auth_log_out()
     return web.Response(text=rend_page,content_type='text/html')
     
@@ -223,7 +223,7 @@ async def re_verfiy(paused,resumed,client,torr):
 
 
 
-@routes.post('/tortk/files/{hash_id}')
+@routes.post('/tk/files/{hash_id}')
 async def set_priority(request):
     torr = request.match_info["hash_id"]
     client = qba.Client(host="localhost",port="8090",username="admin",password="adminadmin")

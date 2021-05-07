@@ -13,17 +13,17 @@ from tk.core.getVars import get_val
 from tk.functions.Leech_Module import check_link,cancel_torrent,pause_all,resume_all,purge_all,get_status,print_files, get_transfer
 from tk.functions.tele_upload import upload_a_file,upload_handel
 from tk.functions import Human_Format
-from tk.database_handle import tkupload,tktorrents, tkdb
-from tk.settings import handle_settings,handle_setting_callback
-from tk.user_settings import handle_user_settings, handle_user_setting_callback
+from tk.core.database_handle import tkupload,tktorrents, tkdb
+from tk.core.settings import handle_settings,handle_setting_callback
+from tk.core.user_settings import handle_user_settings, handle_user_setting_callback
 from functools import partial
-from tk.functions.rclone_upload import get_config,rclone_driver
+from tk.functions.rclone_upload import get_config, rclone_driver
 from tk.functions.admin_check import is_admin
-from tk import upload_db, var_db, tor_db, user_db, uptime
+from tk import upload_db,var_db,tor_db,user_db, uptime
 import asyncio as aio
 import re,logging,time,os,psutil,shutil
 from tk import __version__
-from tk.ttk_ytdl import handle_ytdl_command,handle_ytdl_callbacks,handle_ytdl_file_download,handle_ytdl_playlist,handle_ytdl_playlist_down
+from tk.core.ttk_ytdl import handle_ytdl_command,handle_ytdl_callbacks,handle_ytdl_file_download,handle_ytdl_playlist,handle_ytdl_playlist_down
 from tk.functions.instadl import _insta_post_downloader
 torlog = logging.getLogger(__name__)
 from .status.status import Status
@@ -32,11 +32,11 @@ import signal
 from PIL import Image
 
 def add_handlers(bot: TelegramClient):
-
-
+    #bot.add_event_handler(handle_leech_command,events.NewMessage(func=lambda e : command_process(e,get_command("LEECH")),chats=ExecVars.ALD_USR))
+    
     bot.add_event_handler(
         handle_leech_command,
-        events.NewMessage(func=lambda e : command_process(e,get_command("LEECH")),
+        events.NewMessage(pattern=command_process(get_command("LEECH")),
         chats=get_val("ALD_USR"))
     )
     
@@ -708,12 +708,12 @@ async def about_me(message):
         f"<b>Version</b>: <code>{__version__}</code>\n"
         f"<b>Telethon Version</b>: {telever}\n"
         f"<b>Pyrogram Version</b>: {pyrover}\n"
-        "<u>Currents Configs:-</u>\n\n"
+        f"<u>Currents Configs:-</u>\n\n"
         f"<b>Bot Uptime:-</b> {diff}\n"
-        "<b>Torrent Download Engine:-</b> <code>qBittorrent [4.3.0 fix active]</code> \n"
-        "<b>Direct Link Download Engine:-</b> <code>aria2</code> \n"
-        "<b>Upload Engine:-</b> <code>rclone</code> \n"
-        "<b>Youtube Download Engine:-</b> <code>youtube-dl</code>\n"
+        f"<b>Torrent Download Engine:-</b> <code>qBittorrent [4.3.0 fix active]</code> \n"
+        f"<b>Direct Link Download Engine:-</b> <code>aria2</code> \n"
+        f"<b>Upload Engine:-</b> <code>rclone</code> \n"
+        f"<b>Youtube Download Engine:-</b> <code>youtube-dl</code>\n"
         f"<b>Rclone config:- </b> <code>{rclone_cfg}</code>\n"
         f"<b>Leech:- </b> <code>{leen}</code>\n"
         f"<b>Rclone:- </b> <code>{rclone}</code>\n"
